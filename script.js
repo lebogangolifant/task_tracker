@@ -1,4 +1,5 @@
 const apiUrl = 'http://localhost:3000/tasks';
+let tasks = [];
 
 // Function to render tasks
 function renderTasks() {
@@ -8,7 +9,9 @@ function renderTasks() {
     // Fetch tasks from the backend
     fetch(apiUrl)
         .then(response => response.json())
-        .then(tasks => {
+        .then(fetchedTasks => {
+            tasks = fetchedTasks;
+            applyFiltersAndSort(); // Apply filters and sort before rendering
             tasks.forEach(task => {
                 const taskItem = document.createElement('div');
                 taskItem.className = 'task-item';
@@ -18,11 +21,30 @@ function renderTasks() {
                     <p><strong>Due Date:</strong> ${task.dueDate}</p>
                     <p><strong>Status:</strong> ${task.status}</p>
                     <button onclick="deleteTask(${task.id})">Delete</button>
+                    <button onclick="toggleTaskStatus(${task.id})">${task.status === 'pending' ? 'Mark Completed' : 'Mark Incomplete'}</button>
+                    <button onclick="showUpdateForm(${task.id})">Update</button>
                 `;
                 taskList.appendChild(taskItem);
             });
         })
         .catch(error => console.error('Error fetching tasks:', error));
+}
+
+// Function to apply filters and sort tasks
+function applyFiltersAndSort() {
+    const statusFilter = document.getElementById('statusFilter').value;
+    const completedFilter = document.getElementById('completedFilter').checked;
+
+    tasks = tasks.filter(task => {
+        return (completedFilter || task.status === 'pending') && (statusFilter === 'all' || task.status === statusFilter);
+    });
+
+    const sortBy = document.getElementById('sortBy').value;
+    if (sortBy === 'dueDate') {
+        tasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+    } else if (sortBy === 'status') {
+        tasks.sort((a, b) => a.status.localeCompare(b.status));
+    }
 }
 
 // Function to add a new task
@@ -47,7 +69,7 @@ function addTask() {
             document.getElementById('dueDate').value = '';
 
             // Update the local tasks array with the new task
-            addTask.push(newTask);
+            tasks.push(newTask);
 
             // Update the task list
             renderTasks();
@@ -67,6 +89,76 @@ function deleteTask(taskId) {
             renderTasks();
         })
         .catch(error => console.error('Error deleting task:', error));
+}
+
+// Function to toggle task status (mark as completed or incomplete)
+function toggleTaskStatus(taskId) {
+    const taskToUpdate = tasks.find(task => task.id === taskId);
+
+    if (taskToUpdate) {
+        // Make a PUT request to update the task status
+        fetch(`${apiUrl}/${taskId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ status: taskToUpdate.status === 'pending' ? 'completed' : 'pending' }),
+        })
+            .then(response => response.json())
+            .then(() => {
+                // Update the task list
+                renderTasks();
+            })
+            .catch(error => console.error('Error updating task status:', error));
+    }
+}
+
+// Function to show update form for a task
+function showUpdateForm(taskId) {
+    const taskToUpdate = tasks.find(task => task.id === taskId);
+
+    if (taskToUpdate) {
+        // Populate the form fields with the task details
+        document.getElementById('updateTitle').value = taskToUpdate.title;
+        document.getElementById('updateDescription').value = taskToUpdate.description;
+        document.getElementById('updateDueDate').value = taskToUpdate.dueDate;
+
+        // Show the update form
+        document.getElementById('updateFormContainer').style.display = 'block';
+        document.getElementById('updateTaskId').value = taskId;
+    }
+}
+
+// Function to update an existing task
+function updateTask() {
+    const taskId = document.getElementById('updateTaskId').value;
+    const title = document.getElementById('updateTitle').value;
+    const description = document.getElementById('updateDescription').value;
+    const dueDate = document.getElementById('updateDueDate').value;
+
+    // Make a PUT request to update the task
+    fetch(`${apiUrl}/${taskId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title, description, dueDate }),
+    })
+        .then(response => response.json())
+        .then(() => {
+            // Hide the update form
+            document.getElementById('updateFormContainer').style.display = 'none';
+
+            // Update the task list
+            renderTasks();
+        })
+        .catch(error => console.error('Error updating task:', error));
+}
+
+// Function to cancel the update
+function cancelUpdate() {
+    // Hide the update form
+    document.getElementById('updateFormContainer').style.display = 'none';
 }
 
 // Initial rendering of tasks
