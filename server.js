@@ -43,7 +43,7 @@ app.post('/tasks', (req, res) => {
     const newTask = req.body;
     newTask.id = tasks.length + 1;
     tasks.push(newTask);
-    console.log('Updated tasks:', tasks); // Log the tasks arrayadd
+    console.log('Updated tasks:', tasks); // Log the tasks array
     res.status(201).json(newTask);
 });
 
