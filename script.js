@@ -40,11 +40,14 @@ function addTask() {
         body: JSON.stringify({ title, description, dueDate, status: 'pending' }),
     })
         .then(response => response.json())
-        .then(() => {
+        .then((newTask) => {
             // Clear form fields
             document.getElementById('title').value = '';
             document.getElementById('description').value = '';
             document.getElementById('dueDate').value = '';
+
+            // Update the local tasks array with the new task
+            addTask.push(newTask);
 
             // Update the task list
             renderTasks();
