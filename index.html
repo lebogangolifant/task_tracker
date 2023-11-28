@@ -22,6 +22,25 @@
             <button type="button" onclick="addTask()">Add Task</button>
         </form>
 
+        <!-- New elements for filters and sorting -->
+        <div id="filtersAndSort">
+            <label for="statusFilter">Filter by Status:</label>
+            <select id="statusFilter" onchange="renderTasks()">
+                <option value="all">All</option>
+                <option value="pending">Pending</option>
+                <option value="completed">Completed</option>
+            </select>
+
+            <label for="completedFilter">Show Completed:</label>
+            <input type="checkbox" id="completedFilter" onchange="renderTasks()">
+
+            <label for="sortBy">Sort by:</label>
+            <select id="sortBy" onchange="renderTasks()">
+                <option value="dueDate">Due Date</option>
+                <option value="status">Status</option>
+            </select>
+        </div>
+
         <div id="taskList">
             <!-- Tasks will be displayed here -->
         </div>
