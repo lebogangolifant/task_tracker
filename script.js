@@ -47,6 +47,18 @@ function applyFiltersAndSort() {
     }
 }
 
+// Function to show the task form
+function showTaskForm() {
+    document.getElementById('taskForm').style.display = 'flex'; // or 'block', depending on your styling
+    document.getElementById('addTaskButton').style.display = 'none';
+}
+
+// Function to hide the task form
+function hideTaskForm() {
+    document.getElementById('taskForm').style.display = 'none';
+    document.getElementById('addTaskButton').style.display = 'block';
+}
+
 // Function to add a new task
 function addTask() {
     const title = document.getElementById('title').value;
@@ -73,6 +85,10 @@ function addTask() {
 
             // Update the task list
             renderTasks();
+
+            // Hide the task form
+            hideTaskForm();
+
         })
         .catch(error => console.error('Error adding task:', error));
 }
