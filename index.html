@@ -44,6 +44,26 @@
         <div id="taskList">
             <!-- Tasks will be displayed here -->
         </div>
+
+        <!-- New elements for task update form -->
+        <div id="updateFormContainer">
+            <h2>Update Task</h2>
+            <form id="updateForm">
+                <input type="hidden" id="updateTaskId">
+
+                <label for="updateTitle">Title:</label>
+                <input type="text" id="updateTitle" required>
+
+                <label for="updateDescription">Description:</label>
+                <textarea id="updateDescription" required></textarea>
+
+                <label for="updateDueDate">Due Date:</label>
+                <input type="date" id="updateDueDate" required>
+
+                <button type="button" onclick="updateTask()">Update Task</button>
+                <button type="button" onclick="cancelUpdate()">Cancel</button>
+            </form>
+        </div>
     </div>
 
     <script src="script.js"></script>
