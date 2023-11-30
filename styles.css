@@ -14,8 +14,24 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+#addTask-btn {
+    text-align: center;
+}
+
 h1 {
     text-align: left;
+    color: #666;
+}
+
+span.logo-theme {
+    color: #007bff;
+}
+
+.add-task {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 form {
@@ -23,8 +39,6 @@ form {
     flex-direction: column;
     display: none;
 }
-
-
 
 label {
     margin-top: 10px;
@@ -38,14 +52,41 @@ textarea {
 
 button {
     padding: 10px;
-    background-color: #4caf50;
+    background-color: #007bff;
     color: #fff;
     border: none;
+    border-radius:10px;
     cursor: pointer;
 }
 
+#taskForm button i {
+    margin-right: 8px; /* Add space between icon and text */
+}
+
+/* Center the "Add Task" button initially and increase its length */
+#addTaskButton {
+    font-family:  'Catamaran', sans-serif;
+    display: flex;
+    align-items: center; /* Center icon and text vertically */
+    justify-content: center; /* Center horizontally */
+    width: 50%; /* Make the button full width */
+    margin: 0 auto; /* Center the button horizontally */
+    margin-bottom: 20px; 
+    border-radius: 24px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: box-shadow 0.3s ease; 
+}
+
+#addTaskButton:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+}
+
+#addTaskButton i {
+    margin-right: 8px; /* Add space between icon and text */
+}
+
 button:hover {
-    background-color: #45a049;
+    background-color: #666;
 }
 
 #taskList {
@@ -104,13 +145,12 @@ button:hover {
 
 .action-icons i {
     cursor: pointer;
-    
-    color: #333;
+    color: #007bff;
     transition: color 0.3s ease;
 }
 
 .action-icons i:hover {
-    color: #007bff;
+    color: #666;
 }
 
 /* Styles for task items */
