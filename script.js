@@ -32,6 +32,28 @@ function renderTasks() {
         .catch(error => console.error('Error fetching tasks:', error));
 }
 
+// Function to update the digital clock with date and time
+function updateDigitalClock() {
+    const digitalClockElement = document.getElementById('digitalClock');
+    const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+    const timeString = new Date().toLocaleTimeString('en-US', optionsTime);
+    const dateString = new Date().toLocaleDateString('en-US', optionsDate);
+
+    digitalClockElement.innerHTML = `
+        <div id="time">${timeString}</div>
+        <div id="date">${dateString}</div>
+    `;
+}
+
+// Update the digital clock initially
+updateDigitalClock();
+
+// Set up interval to update the digital clock every second
+setInterval(updateDigitalClock, 1000);
+
+
 // Function to apply filters and sort tasks
 function applyFiltersAndSort() {
     const statusFilter = document.getElementById('statusFilter').value;
