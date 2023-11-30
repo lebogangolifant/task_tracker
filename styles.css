@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family:  'Catamaran', sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
@@ -8,14 +8,14 @@ body {
 .container {
     max-width: 600px;
     margin: 50px auto;
-    background-color: #fff;
+    background-color: #ffffff;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-    text-align: center;
+    text-align: left;
 }
 
 form {
@@ -94,3 +94,48 @@ button:hover {
     margin-top: 10px;
     background-color: #007bff;
 }
+
+/* Styles for action icons */
+.action-icons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.action-icons i {
+    cursor: pointer;
+    
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.action-icons i:hover {
+    color: #007bff;
+}
+
+/* Styles for task items */
+.task-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.task-item h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.task-item p {
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.task-item p strong {
+    color: #333;
+}
+
+p.height {
+    margin-top: -6px;
+}
+
