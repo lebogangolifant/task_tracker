@@ -51,7 +51,7 @@ function applyFiltersAndSort() {
 
 // Function to show the task form
 function showTaskForm() {
-    document.getElementById('taskForm').style.display = 'flex'; // or 'block', depending on your styling
+    document.getElementById('taskForm').style.display = 'flex';
     document.getElementById('addTaskButton').style.display = 'none';
 }
 
