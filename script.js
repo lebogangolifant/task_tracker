@@ -19,10 +19,12 @@ function renderTasks() {
                     <h3>${task.title}</h3>
                     <p>${task.description}</p>
                     <p><strong>Due Date:</strong> ${task.dueDate}</p>
-                    <p><strong>Status:</strong> ${task.status}</p>
-                    <button onclick="deleteTask(${task.id})">Delete</button>
-                    <button onclick="toggleTaskStatus(${task.id})">${task.status === 'pending' ? 'Mark Completed' : 'Mark Incomplete'}</button>
-                    <button onclick="showUpdateForm(${task.id})">Update</button>
+                    <p class="height"><strong>Status:</strong> ${task.status}</p>
+                    <div class="action-icons">
+                         <i class="fas fa-trash fa-sm" title="Delete" onclick="deleteTask(${task.id})"></i>
+                         <i class="fas fa-check fa-sm" title="${task.status === 'pending' ? 'Mark Completed' : 'Mark Incomplete'}" onclick="toggleTaskStatus(${task.id})"></i>
+                        <i class="fa fa-edit fa-sm" title="Update" onclick="showUpdateForm(${task.id})"></i>
+                    </div>
                 `;
                 taskList.appendChild(taskItem);
             });
