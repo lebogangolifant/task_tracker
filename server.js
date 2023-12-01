@@ -1,3 +1,6 @@
+//  Load the environment variables using dotenv
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -11,7 +14,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Connect to MongoDB
-const mongoUri = "mongodb+srv://task-trackerdb:H3gvVInCQVRZPAfP@task-tracker.m30bwok.mongodb.net/?retryWrites=true&w=majority"; 
+const mongoUri = process.env.MONGO_URI || 'default_connection_string';
 mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
@@ -69,6 +72,7 @@ app.get('/tasks/:taskId', (req, res) => {
 // Endpoint to add a new task
 app.post('/tasks', async (req, res) => {
     const newTask = new Task(req.body);
+    console.log('Received task data:', req.body);
     try {
       const savedTask = await newTask.save();
       console.log('Task added:', savedTask);
