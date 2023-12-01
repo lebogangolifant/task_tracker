@@ -3,6 +3,7 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for dark/light mode switch */
 }
 
 .container {
@@ -34,7 +35,7 @@ body {
     text-align: center;
 }
 
-h1 {
+h1, h2 {
     text-align: left;
     color: #666;
 }
@@ -97,6 +98,31 @@ button {
 
 button:hover {
     background-color: #666;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #222;
+    color: #fff;
+}
+
+.container.dark-mode {
+    background-color: #333;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.toggle-icon {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333; /* Default color in light mode */
+    transition: color 0.3s;
+}
+
+.dark-mode .toggle-icon {
+    color: #fff; /* Color in dark mode */
 }
 
 #taskForm button i {
