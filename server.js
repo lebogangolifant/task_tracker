@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const mongoose = require('mongoose');
 
 const app = express();
 const port = 3000;
@@ -8,6 +9,28 @@ const port = 3000;
 // Enable CORS and use bodyParser for JSON parsing
 app.use(cors());
 app.use(bodyParser.json());
+
+// Connect to MongoDB
+const mongoUri = process.env.MONGO_URI || 'default_connection_string';
+mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+  console.log('Connected to MongoDB');
+});
+
+// Define your task schema
+const taskSchema = new mongoose.Schema({
+  title: String,
+  description: String,
+  dueDate: Date,
+  status: String,
+});
+
+// Create a Task model
+const Task = mongoose.model('Task', taskSchema);
 
 // Sample data for initial tasks
 let tasks = [
@@ -22,8 +45,13 @@ app.get('/', (req, res) => {
 
 
 // Endpoint to get all tasks
-app.get('/tasks', (req, res) => {
+app.get('/tasks', async (req, res) => {
+   try {
+    const tasks = await Task.find();
     res.json(tasks);
+   } catch (error) {
+    res.status(500).json({ error: 'Error fetching tasks' });
+   }
 });
 
 // Endpoint to get a specific task by ID
@@ -37,6 +65,18 @@ app.get('/tasks/:taskId', (req, res) => {
         res.status(404).json({ error: 'Task not found' });
     }
 });
+
+// Endpoint to add a new task
+app.post('/tasks', async (req, res) => {
+    const newTask = new Task(req.body);
+    try {
+      const savedTask = await newTask.save();
+      res.status(201).json(savedTask);
+    } catch (error) {
+      res.status(500).json({ error: 'Error adding task' });
+    }
+  });
+  
 
 // Endpoint to add a new task
 app.post('/tasks', (req, res) => {
