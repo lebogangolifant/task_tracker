@@ -153,6 +153,28 @@ function toggleTaskStatus(taskId) {
     }
 }
 
+// Function to show the update form and overlay
+function showUpdateForm() {
+    const updateFormContainer = document.getElementById('updateFormContainer');
+    const overlay = document.querySelector('.overlay');
+
+    // Display the update form and overlay
+    updateFormContainer.style.display = 'block';
+    overlay.classList.add('active');
+    overlay.style.display = 'block';
+}
+
+// Function to hide the update form and overlay
+function hideUpdateForm() {
+    const updateFormContainer = document.getElementById('updateFormContainer');
+    const overlay = document.querySelector('.overlay');
+
+    // Hide the update form and overlay
+    updateFormContainer.style.display = 'none';
+    overlay.classList.remove('active');
+    overlay.style.display = 'none';
+}
+
 // Function to show update form for a task
 function showUpdateForm(taskId) {
     const taskToUpdate = tasks.find(task => task.id === taskId);
