@@ -1,3 +1,6 @@
+//  Load the environment variables using dotenv
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -69,6 +72,7 @@ app.get('/tasks/:taskId', (req, res) => {
 // Endpoint to add a new task
 app.post('/tasks', async (req, res) => {
     const newTask = new Task(req.body);
+    console.log('Received task data:', req.body);
     try {
       const savedTask = await newTask.save();
       console.log('Task added:', savedTask);
