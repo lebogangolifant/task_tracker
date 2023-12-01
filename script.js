@@ -32,6 +32,12 @@ function renderTasks() {
         .catch(error => console.error('Error fetching tasks:', error));
 }
 
+// Function to toggle dark mode
+function toggleDarkMode() {
+    const body = document.body;
+    body.classList.toggle('dark-mode');
+}
+
 // Function to update the digital clock with date and time
 function updateDigitalClock() {
     const digitalClockElement = document.getElementById('digitalClock');
