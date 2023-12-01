@@ -71,8 +71,10 @@ app.post('/tasks', async (req, res) => {
     const newTask = new Task(req.body);
     try {
       const savedTask = await newTask.save();
+      console.log('Task added:', savedTask);
       res.status(201).json(savedTask);
     } catch (error) {
+        console.error('Error adding task:', error);  
       res.status(500).json({ error: 'Error adding task' });
     }
   });
