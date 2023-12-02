@@ -35,17 +35,10 @@ const taskSchema = new mongoose.Schema({
 // Create a Task model
 const Task = mongoose.model('Task', taskSchema);
 
-// Sample data for initial tasks
-let tasks = [
-    { id: 1, title: 'Complete Project Proposal', description: 'Write a detailed project proposal for submission.', dueDate: '2023-12-01', status: 'pending' },
-    // Add more tasks if needed
-];
-
 // Route handler for the root path to send a response
 app.get('/', (req, res) => {
     res.send('Welcome to the Task Tracker API');
 });
-
 
 // Endpoint to get all tasks
 app.get('/tasks', async (req, res) => {
@@ -58,24 +51,25 @@ app.get('/tasks', async (req, res) => {
 });
 
 // Endpoint to get a specific task by ID
-app.get('/tasks/:taskId', (req, res) => {
-    const taskId = parseInt(req.params.taskId);
-    const task = tasks.find(task => task.id === taskId);
-
-    if (task) {
+app.get('/tasks/:taskId', async (req, res) => {
+    const taskId = req.params.taskId;
+    try {
+      const task = await Task.findById(taskId);
+      if (task) {
         res.json(task);
-    } else {
+      } else {
         res.status(404).json({ error: 'Task not found' });
-    }
+      }
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching task' });
+  }
 });
 
 // Endpoint to add a new task
 app.post('/tasks', async (req, res) => {
     const newTask = new Task(req.body);
-    console.log('Received task data:', req.body);
     try {
       const savedTask = await newTask.save();
-      console.log('Task added:', savedTask);
       res.status(201).json(savedTask);
     } catch (error) {
         console.error('Error adding task:', error);  
@@ -83,16 +77,6 @@ app.post('/tasks', async (req, res) => {
     }
   });
   
-
-// Endpoint to add a new task
-app.post('/tasks', (req, res) => {
-    const newTask = req.body;
-    newTask.id = tasks.length + 1;
-    tasks.push(newTask);
-    console.log('Updated tasks:', tasks); // Log the tasks array
-    res.status(201).json(newTask);
-});
-
 // Endpoint to update an existing task
 app.put('/tasks/:taskId', (req, res) => {
     const taskId = parseInt(req.params.taskId);
