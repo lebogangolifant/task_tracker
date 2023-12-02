@@ -71,29 +71,32 @@ app.post('/tasks', async (req, res) => {
     try {
       const savedTask = await newTask.save();
       res.status(201).json(savedTask);
-    } catch (error) {
-        console.error('Error adding task:', error);  
+    } catch (error) { 
       res.status(500).json({ error: 'Error adding task' });
     }
   });
   
 // Endpoint to update an existing task
-app.put('/tasks/:taskId', (req, res) => {
-    const taskId = parseInt(req.params.taskId);
+app.put('/tasks/:taskId', async (req, res) => {
+    const taskId = req.params.taskId;
     const updatedTask = req.body;
-
-    tasks = tasks.map(task => (task.id === taskId ? { ...task, ...updatedTask } : task));
-
-    res.json({ success: true });
+    try {
+      const result = await Task.findByIdAndUpdate(taskId, updatedTask, { new: true });
+      res.json(result);
+    } catch (error) {
+      res.status(500).json({ error: 'Error updating task' });
+    }  
 });
 
 // Endpoint to delete a task
-app.delete('/tasks/:taskId', (req, res) => {
-    const taskId = parseInt(req.params.taskId);
-
-    tasks = tasks.filter(task => task.id !== taskId);
-
+app.delete('/tasks/:taskId', async (req, res) => {
+  const taskId = req.params.taskId;
+  try {
+    const result = await Task.findByIdAndDelete(taskId);
     res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Error deleting task' });
+  }
 });
 
 // Start the server
