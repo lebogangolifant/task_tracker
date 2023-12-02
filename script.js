@@ -21,9 +21,9 @@ function renderTasks() {
                     <p><strong>Due Date:</strong> ${task.dueDate}</p>
                     <p class="height"><strong>Status:</strong> ${task.status}</p>
                     <div class="action-icons">
-                         <i class="fas fa-trash fa-sm" title="Delete" onclick="deleteTask(${task.id})"></i>
-                         <i class="fas fa-check fa-sm" title="${task.status === 'pending' ? 'Mark Completed' : 'Mark Incomplete'}" onclick="toggleTaskStatus(${task.id})"></i>
-                        <i class="fa fa-edit fa-sm" title="Update" onclick="showUpdateForm(${task.id})"></i>
+                         <i class="fas fa-trash fa-sm" title="Delete" onclick="deleteTask('${task.id}')"></i>
+                         <i class="fas fa-check fa-sm" title="${task.status === 'pending' ? 'Mark Completed' : 'Mark Incomplete'}" onclick="toggleTaskStatus('${task.id}')"></i>
+                        <i class="fa fa-edit fa-sm" title="Update" onclick="showUpdateForm('${task.id}')"></i>
                     </div>
                 `;
                 taskList.appendChild(taskItem);
@@ -125,6 +125,7 @@ function addTask() {
 
 // Function to delete a task
 function deleteTask(taskId) {
+    console.log('Deleting task with ID:', taskId);
     // Make a DELETE request to delete the task
     fetch(`${apiUrl}/${taskId}`, {
         method: 'DELETE',
@@ -132,6 +133,7 @@ function deleteTask(taskId) {
         .then(response => response.json())
         .then(() => {
             // Update the task list
+            console.log('Task deleted successfully.');
             renderTasks();
         })
         .catch(error => console.error('Error deleting task:', error));
