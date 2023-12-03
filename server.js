@@ -53,6 +53,7 @@ app.get('/tasks', async (req, res) => {
 // Endpoint to get a specific task by ID
 app.get('/tasks/:taskId', async (req, res) => {
     const taskId = req.params.taskId;
+
     try {
       const task = await Task.findById(taskId);
       if (task) {
@@ -68,6 +69,7 @@ app.get('/tasks/:taskId', async (req, res) => {
 // Endpoint to add a new task
 app.post('/tasks', async (req, res) => {
     const newTask = new Task(req.body);
+
     try {
       const savedTask = await newTask.save();
       res.status(201).json(savedTask);
@@ -79,10 +81,10 @@ app.post('/tasks', async (req, res) => {
 // Endpoint to update an existing task
 app.put('/tasks/:taskId', async (req, res) => {
     const taskId = req.params.taskId;
-    const updatedTask = req.body;
+
     try {
-      const result = await Task.findByIdAndUpdate(taskId, updatedTask, { new: true });
-      res.json(result);
+      const updatedTask = await Task.findByIdAndUpdate(taskId, req.body, { new: true });
+      res.json(updatedTask);
     } catch (error) {
       res.status(500).json({ error: 'Error updating task' });
     }  
@@ -91,8 +93,9 @@ app.put('/tasks/:taskId', async (req, res) => {
 // Endpoint to delete a task
 app.delete('/tasks/:taskId', async (req, res) => {
   const taskId = req.params.taskId;
+
   try {
-    const result = await Task.findByIdAndDelete(taskId);
+    await Task.findByIdAndDelete(taskId);
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: 'Error deleting task' });
