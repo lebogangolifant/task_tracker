@@ -13,17 +13,22 @@ function renderTasks() {
             tasks = fetchedTasks;
             applyFiltersAndSort(); // Apply filters and sort before rendering
             tasks.forEach(task => {
+                const formattedDueDate = new Date(task.dueDate).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                });
                 const taskItem = document.createElement('div');
                 taskItem.className = 'task-item';
                 taskItem.innerHTML = `
                     <h3>${task.title}</h3>
                     <p>${task.description}</p>
-                    <p><strong>Due Date:</strong> ${task.dueDate}</p>
+                    <p><strong>Due Date:</strong> ${formattedDueDate}</p>
                     <p class="height"><strong>Status:</strong> ${task.status}</p>
                     <div class="action-icons">
-                         <i class="fas fa-trash fa-sm" title="Delete" onclick="deleteTask('${task.id}')"></i>
-                         <i class="fas fa-check fa-sm" title="${task.status === 'pending' ? 'Mark Completed' : 'Mark Incomplete'}" onclick="toggleTaskStatus('${task.id}')"></i>
-                        <i class="fa fa-edit fa-sm" title="Update" onclick="showUpdateForm('${task.id}')"></i>
+                         <i class="fas fa-trash fa-sm" title="Delete" onclick="deleteTask('${task._id}')"></i>
+                         <i class="fas fa-check fa-sm" title="${task.status === 'pending' ? 'Mark Completed' : 'Mark Incomplete'}" onclick="toggleTaskStatus('${task._id}')"></i>
+                        <i class="fa fa-edit fa-sm" title="Update" onclick="showUpdateForm('${task._id}')"></i>
                     </div>
                 `;
                 taskList.appendChild(taskItem);
@@ -141,7 +146,7 @@ function deleteTask(taskId) {
 
 // Function to toggle task status (mark as completed or incomplete)
 function toggleTaskStatus(taskId) {
-    const taskToUpdate = tasks.find(task => task.id === taskId);
+    const taskToUpdate = tasks.find(task => task._id === taskId);
 
     if (taskToUpdate) {
         // Make a PUT request to update the task status
@@ -185,7 +190,7 @@ function hideUpdateForm() {
 
 // Function to show update form for a task
 function showUpdateForm(taskId) {
-    const taskToUpdate = tasks.find(task => task.id === taskId);
+    const taskToUpdate = tasks.find(task => task._id === taskId);
 
     if (taskToUpdate) {
         // Populate the form fields with the task details
