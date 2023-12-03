@@ -1,4 +1,4 @@
-const apiUrl = 'http://localhost:3000/tasks';
+const apiUrl = '/tasks';
 let tasks = [];
 
 // Function to render tasks
