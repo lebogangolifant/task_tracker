@@ -1,9 +1,6 @@
 //  Load the environment variables using dotenv
 require('dotenv').config();
 
-//  Load the environment variables using dotenv
-require('dotenv').config();
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -27,29 +24,7 @@ db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
-// Define your task schema
-const taskSchema = new mongoose.Schema({
-  title: String,
-  description: String,
-  dueDate: Date,
-  status: String,
-});
-
-// Create a Task model
-const Task = mongoose.model('Task', taskSchema);
-
-// Connect to MongoDB
-const mongoUri = process.env.MONGO_URI || 'default_connection_string';
-mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-const db = mongoose.connection;
-
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', () => {
-  console.log('Connected to MongoDB');
-});
-
-// Define your task schema
+// Define task schema
 const taskSchema = new mongoose.Schema({
   title: String,
   description: String,
