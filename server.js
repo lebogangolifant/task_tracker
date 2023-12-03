@@ -1,6 +1,9 @@
 //  Load the environment variables using dotenv
 require('dotenv').config();
 
+//  Load the environment variables using dotenv
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -12,6 +15,28 @@ const port = 3000;
 // Enable CORS and use bodyParser for JSON parsing
 app.use(cors());
 app.use(bodyParser.json());
+
+// Connect to MongoDB
+const mongoUri = process.env.MONGO_URI || 'default_connection_string';
+mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+  console.log('Connected to MongoDB');
+});
+
+// Define your task schema
+const taskSchema = new mongoose.Schema({
+  title: String,
+  description: String,
+  dueDate: Date,
+  status: String,
+});
+
+// Create a Task model
+const Task = mongoose.model('Task', taskSchema);
 
 // Connect to MongoDB
 const mongoUri = process.env.MONGO_URI || 'default_connection_string';
@@ -65,6 +90,21 @@ app.get('/tasks/:taskId', async (req, res) => {
     res.status(500).json({ error: 'Error fetching task' });
   }
 });
+
+// Endpoint to add a new task
+app.post('/tasks', async (req, res) => {
+    const newTask = new Task(req.body);
+    console.log('Received task data:', req.body);
+    try {
+      const savedTask = await newTask.save();
+      console.log('Task added:', savedTask);
+      res.status(201).json(savedTask);
+    } catch (error) {
+        console.error('Error adding task:', error);  
+      res.status(500).json({ error: 'Error adding task' });
+    }
+  });
+  
 
 // Endpoint to add a new task
 app.post('/tasks', async (req, res) => {
