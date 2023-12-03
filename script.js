@@ -1,4 +1,4 @@
-const apiUrl = 'https://lebogangolifant.github.io/task_tracker/';
+const apiUrl = 'http://localhost:3000/tasks';
 let tasks = [];
 
 // Function to render tasks
