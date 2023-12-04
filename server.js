@@ -121,5 +121,5 @@ app.delete('/tasks/:taskId', async (req, res) => {
 
 // Start the server
 app.listen(port, () => {
-    console.log(`Server is running on ${port}`);
+    console.log(`Server is running on http://localhost:${port}`);
 });
