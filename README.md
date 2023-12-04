@@ -76,13 +76,15 @@ Before you begin, ensure you have the following tools installed:
    npm start
    ```
 
-2. Open the web app in your browser:
-
-   ```bash
+    ```bash
    http://localhost:3000/tasks
    ```
 
+2. Open the web app in your browser
+
+
 3. Add, manage, and track your tasks!
+
 
 ## API Endpoints
 
