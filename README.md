@@ -3,7 +3,7 @@
 
 ![Task Tracker Logo](tasks-logo.png)
 
-Simplify your task management with this user-friendly Task Tracker. Crafted with HTML, CSS, and JavaScript on the frontend, it communicates with the backend using the Fetch API. Powered by Node.js and Express, the backend seamlessly integrates MongoDB via Mongoose. Easy and straightforward for efficient task tracking
+Simple user-friendly task management web app. Crafted with HTML, CSS, and JavaScript on the frontend, communicates with the backend using the Fetch API. Powered by Node.js and Express, the backend seamlessly integrates MongoDB via Mongoose.
 
 
 ## Table of Contents
