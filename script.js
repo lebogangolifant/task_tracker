@@ -1,4 +1,5 @@
-const apiUrl = '/tasks';
+const apiUrl = 'https://task-tracker-server-ab301d6e354a.herokuapp.com/tasks';
+// const apiUrl = '/tasks';
 let tasks = [];
 
 // Function to render tasks
