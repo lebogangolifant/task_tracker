@@ -1,9 +1,7 @@
 
 # Task Tracker
 
-<div align="center">
-  <img src="task_tracker_logo.png" alt="Your Image" width="400" height="400" />
-</div>
+![Task Tracker Logo](task_tracker_logo.png)
 
 Simple user-friendly task management web app. Crafted with HTML, CSS, and JavaScript on the frontend, communicates with the backend using the Fetch API. Powered by Node.js and Express, the backend seamlessly integrates MongoDB via Mongoose.
 
