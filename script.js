@@ -1,5 +1,8 @@
+// Base relative URL for backend API
 const apiUrl = 'https://task-tracker-server-ab301d6e354a.herokuapp.com/tasks';
-// const apiUrl = '/tasks';
+
+// For local testing
+// const apiUrl = '/tasks'; 
 let tasks = [];
 
 // Function to render tasks
