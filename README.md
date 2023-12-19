@@ -34,7 +34,7 @@ Simple user-friendly task management RESTful API. Built with HTML5, CSS3, and Ja
 
 ## Blog Post
 
-Read about an in-depth look at the [project development process](https://medium.com/@lebogang.olifant/a-solo-endeavor-building-task-tracker-d774107ff077?source=friends_link&sk=b900bcf4c902e77d58a6c37d7d8ae0dd).
+Read about an in-depth look at the [project development process](https://bit.ly/task_tracker_blog).
 
 ## Getting Started
 
