@@ -3,7 +3,7 @@
 
 ![Task Tracker Logo](img/task_tracker_app.png)
 
-Simple user-friendly task management RESTful API. Built with HTML5, CSS3, and JavaScript on the frontend, communicates with the backend using the Fetch API. Powered by Node.js and Express to manage servers and routes, the backend seamlessly integrates MongoDB via Mongoose.
+A simple task management web application, that utilizes the RESTful API architectural style. The frontend is Built with HTML5, CSS3, and JavaScript. It communicates with the backend through the Fetch API, a JavaScript interface for accessing and manipulating parts of the protocol (requests and responses). The backend is powered by Node.js and Express, managing servers and routes. Seamless integration with MongoDB is achieved through Mongoose.
 
 
 ## Table of Contents
@@ -34,7 +34,7 @@ Simple user-friendly task management RESTful API. Built with HTML5, CSS3, and Ja
 
 ## Blog Post
 
-Read about an in-depth look at the [project development process](https://bit.ly/task_tracker_blog).
+An in-depth look at the [project development process](https://bit.ly/task_tracker_blog)
 
 ## Getting Started
 
@@ -80,16 +80,15 @@ Before you begin, ensure you have the following tools installed:
    ```bash
    npm start
    ```
-
+2. Navigate to
     ```bash
    http://localhost:3000/tasks
    ```
+   in your browser to see data stored in  JSON files.
 
-2. Open the web app in your browser
+3. Open the web application ``index.html`` file in your browser.
 
-
-3. Add, manage, and track your tasks!
-
+4. Add, manage, and track your tasks!
 
 ## API Endpoints
 
@@ -98,6 +97,7 @@ Before you begin, ensure you have the following tools installed:
 - **POST /tasks**: Add a new task.
 - **PUT /tasks/:taskId**: Update an existing task.
 - **DELETE /tasks/:taskId**: Delete a task.
+
 
 #### **Example JSON for a Task:**
 ```json
@@ -112,7 +112,7 @@ Before you begin, ensure you have the following tools installed:
 
 ## Frontend
 
-- Built with HTML, CSS, and JavaScript.
+- Built with HTML5, CSS3, and JavaScript.
 - Utilizes the Fetch API for communication with the backend.
 
 ## Backend
