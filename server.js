@@ -8,8 +8,59 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+
 const app = express();
 const port = process.env.PORT || 3000;
+
+// Middleware to verify JWT token
+function authenticateUser(req, res, next) {
+    const token = req.headers.authorization.split(' ')[1];
+    if (!token) return res.status(401).json({ error: 'Token not provided' });
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) return res.status(403).json({ error: 'Failed to authenticate token' });
+        req.user = decoded;
+        next();
+    });
+}
+
+// Route for user registration
+app.post('/api/register', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const hashedPassword = await bcrypt.hash(password, 10);
+        // Save user to database
+        res.json({ message: 'User registered successfully' });
+    } catch (error) {
+        console.error('Error registering user:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Route for user login
+app.post('/api/login', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        // Fetch user from database 
+        const user = { id: 1, username: 'example' };
+        if (!user) return res.status(404).json({ error: 'User not found' });
+        const passwordMatch = await bcrypt.compare(password, user.hashedPassword);
+        if (!passwordMatch) return res.status(401).json({ error: 'Invalid credentials' });
+        const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET);
+        res.json({ token });
+    } catch (error) {
+        console.error('Error logging in:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Protected route example
+app.get('/api/tasks', authenticateUser, async (req, res) => {
+    // Implementation for fetching tasks for authenticated user
+});
+
 
 // Enable CORS and use bodyParser for JSON parsing
 app.use(cors());
