@@ -16,6 +16,69 @@ body {
     z-index: 998;
 }
 
+/* Styles for login and registration forms */
+.login-container,
+.register-container {
+    max-width: 400px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h2,
+.register-container h2 {
+    text-align: center;
+    color: #333;
+}
+
+.login-container form,
+.register-container form {
+    margin-top: 20px;
+}
+
+.login-container input,
+.register-container input,
+.login-container button,
+.register-container button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.login-container button,
+.register-container button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-container button:hover,
+.register-container button:hover {
+    background-color: #0056b3;
+}
+
+/* Additional styles for register link */
+.register-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.register-link a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
 /* Style for the logo elements */
 .logo-container {
     display: flex;
