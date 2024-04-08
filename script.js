@@ -5,6 +5,39 @@ const apiUrl = 'https://task-tracker-server-ab301d6e354a.herokuapp.com/tasks';
 // const apiUrl = '/tasks'; 
 let tasks = [];
 
+// Function to handle user login
+function loginUser(username, password) {
+    fetch('/api/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        localStorage.setItem('token', data.token);
+        
+    })
+    .catch(error => console.error('Error logging in:', error));
+}
+
+// Function to handle user registration
+function registerUser(username, password) {
+    fetch('/api/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        
+    })
+    .catch(error => console.error('Error registering user:', error));
+}
+
 // Function to render tasks
 function renderTasks() {
     const taskList = document.getElementById('taskList');
