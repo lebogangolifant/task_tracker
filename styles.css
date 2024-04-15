@@ -17,6 +17,15 @@ body {
 }
 
 /* Styles for login and registration forms */
+
+.login-container,
+.register-container,
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+
 .login-container,
 .register-container {
     max-width: 400px;
