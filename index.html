@@ -44,7 +44,7 @@
       <form
         id="loginForm"
         class="login-container"
-        onsubmit="loginUser()"
+        style="display: none;"
       >
         <h1>Login</h1>
         <label for="loginUsername">Username:</label>
@@ -58,7 +58,7 @@
       <form
         id="registrationForm"
         class="register-container"
-        onsubmit="registerUser()"
+        style="display: none;"
       >
         <h2>Register</h2>
         <label for="registerUsername">Username:</label>
@@ -69,6 +69,15 @@
         <input type="password" id="confirmPassword" required />
         <button type="submit">Register</button>
       </form>
+
+      <!-- Navigation links for login and register -->
+    <div class="navigation-links">
+        <a href="#" onclick="showLoginForm()">Login</a>
+        <a href="#" onclick="showRegistrationForm()">Register</a>
+    </div>
+
+    <!-- Main app content -->
+      <div id="task-app">
 
       <!-- Task form -->
       <form id="taskForm">
@@ -133,6 +142,7 @@
         </form>
       </div>
     </div>
+</div>
 
     <!-- Overlay for background shadow -->
     <div id="overlay"></div>
