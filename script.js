@@ -5,9 +5,23 @@ const apiUrl = 'https://task-tracker-server-ab301d6e354a.herokuapp.com/tasks';
 // const apiUrl = '/tasks'; 
 let tasks = [];
 
+// Function for displaying authentication forms
+function showLoginForm() {
+    document.getElementById('loginForm').style.display = 'block';
+    document.getElementById('registrationForm').style.display = 'none';
+}
+
+function showRegistrationForm() {
+    document.getElementById('loginForm').style.display = 'none';
+    document.getElementById('registrationForm').style.display = 'block';
+}
+
 // Function to handle user login
-function loginUser(username, password) {
-    fetch('/api/login', {
+function loginUser() {
+    const username = document.getElementById('loginUsername').value;
+    const password = document.getElementById('loginPassword').value;
+
+    fetch(`${apiUrl}/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -16,15 +30,18 @@ function loginUser(username, password) {
     })
     .then(response => response.json())
     .then(data => {
-        localStorage.setItem('token', data.token);
-        
+        // Redirect to index.html upon successful login
+        window.location.href = 'index.html';
     })
     .catch(error => console.error('Error logging in:', error));
 }
 
 // Function to handle user registration
-function registerUser(username, password) {
-    fetch('/api/register', {
+function registerUser() {
+    const username = document.getElementById('registerUsername').value;
+    const password = document.getElementById('registerPassword').value;
+
+    fetch(`${apiUrl}/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -33,10 +50,12 @@ function registerUser(username, password) {
     })
     .then(response => response.json())
     .then(data => {
-        
+        // Redirect to index.html upon successful registration
+        window.location.href = 'index.html';
     })
     .catch(error => console.error('Error registering user:', error));
 }
+
 
 // Function to render tasks
 function renderTasks() {
