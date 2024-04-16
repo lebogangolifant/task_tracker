@@ -5,15 +5,25 @@ const apiUrl = 'https://task-tracker-server-ab301d6e354a.herokuapp.com/tasks';
 // const apiUrl = '/tasks'; 
 let tasks = [];
 
-// Function for displaying authentication forms
+// Function to show the login form and hide other elements
 function showLoginForm() {
     document.getElementById('loginForm').style.display = 'block';
     document.getElementById('registrationForm').style.display = 'none';
+    document.getElementById('task-app').style.display = "none";
 }
 
+// Function to show the registration form and hide other elements
 function showRegistrationForm() {
     document.getElementById('loginForm').style.display = 'none';
     document.getElementById('registrationForm').style.display = 'block';
+    document.getElementById("task-app").style.display = "none";
+}
+
+// Function to show the main app content and hide login/registration forms
+function showApp() {
+    document.getElementById("task-app").style.display = "block";
+    document.getElementById("loginForm").style.display = "none";
+    document.getElementById("registrationForm").style.display = "none";
 }
 
 // Function to handle user login
@@ -34,6 +44,7 @@ function loginUser() {
         window.location.href = 'index.html';
     })
     .catch(error => console.error('Error logging in:', error));
+    showApp();
 }
 
 // Function to handle user registration
@@ -54,6 +65,7 @@ function registerUser() {
         window.location.href = 'index.html';
     })
     .catch(error => console.error('Error registering user:', error));
+    showApp();
 }
 
 
