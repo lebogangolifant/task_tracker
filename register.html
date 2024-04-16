@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="img/tasks-icon.ico">
+    <script src="https://kit.fontawesome.com/bcdb4329ce.js" crossorigin="anonymous"></script>
+    <title>Task Tracker</title>
+</head>
+<body>
+    <!-- Dark and Light mode toggle -->
+    <div class="toggle-icon" onclick="toggleDarkMode()">
+        <i class="fa fa-toggle-on fa-lg"></i>
+    </div>
+    <!-- GitHub icon -->
+    <a href="https://github.com/lebogangolifant/task_tracker" target="_blank" class="github-icon">
+        <i class="fab fa-github fa-m"></i>
+    </a>
+
+    <!-- Main web app container-->
+    <div class="container">
+        <div class="logo-container">
+            <img src="img/tasks-logo.png" alt="Task Tracker" class="logo">
+            <h0 id="logo">Task <span class="logo-theme">tracker.</span></h0>
+        </div>
+        <!-- div for digital clock -->
+        <div id="digitalClock"></div>
+
+        <!-- User Registration Form -->
+        <form id="registrationForm" class="register-container" onsubmit="registerUser()">
+            <h2>Register</h2>
+            <label for="registerUsername">Username:</label>
+            <input type="text" id="registerUsername" required>
+            <label for="registerPassword">Password:</label>
+            <input type="password" id="registerPassword" required>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" required>
+            <button type="submit">Register</button>
+        </form>
+</body>
+</html>
