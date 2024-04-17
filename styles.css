@@ -10,6 +10,41 @@ body {
     display: none;
 }
 
+.welcome-message {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 50px;
+    color: #333;
+}
+
+/* Navigation links container */
+.navigation-links {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 70px;
+}
+
+/* Navigation links style */
+.nav-button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Hover effect for navigation links */
+.nav-button:hover {
+    background-color: #666; /* Change background color on hover */
+}
+
+/* App container */
 .container {
     max-width: 600px;
     margin: 50px auto;
@@ -74,7 +109,7 @@ form {
 
 .login-container button:hover,
 .register-container button:hover {
-    background-color: #0056b3;
+    background-color: #666;
 }
 
 /* Additional styles for register link */
