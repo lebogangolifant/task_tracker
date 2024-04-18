@@ -27,7 +27,7 @@ function authenticateUser(req, res, next) {
 }
 
 // Route for user registration
-app.post('/api/register', async (req, res) => {
+app.post('/register', async (req, res) => {
     try {
         const { username, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -40,7 +40,7 @@ app.post('/api/register', async (req, res) => {
 });
 
 // Route for user login
-app.post('/api/login', async (req, res) => {
+app.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
         // Fetch user from database 
@@ -57,7 +57,7 @@ app.post('/api/login', async (req, res) => {
 });
 
 // Protected route example
-app.get('/api/tasks', authenticateUser, async (req, res) => {
+app.get('/tasks', authenticateUser, async (req, res) => {
     // Implementation for fetching tasks for authenticated user
 });
 
