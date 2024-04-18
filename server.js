@@ -32,6 +32,7 @@ app.post('/register', async (req, res) => {
         const { username, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
         // Save user to database
+        const user = await User.create({ username, hashedPassword });
         res.json({ message: 'User registered successfully' });
     } catch (error) {
         console.error('Error registering user:', error);
@@ -43,7 +44,8 @@ app.post('/register', async (req, res) => {
 app.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
-        // Fetch user from database 
+        // Fetch user from database
+        const user = await User.findOne({ username });
         const user = { id: 1, username: 'example' };
         if (!user) return res.status(404).json({ error: 'User not found' });
         const passwordMatch = await bcrypt.compare(password, user.hashedPassword);
