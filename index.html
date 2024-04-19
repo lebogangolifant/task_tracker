@@ -45,6 +45,7 @@
         id="loginForm"
         class="login-container"
         style="display: none;"
+        onsubmit="event.preventDefault(); loginUser()"
       >
         <h1>Login</h1>
         <label for="loginUsername">Username:</label>
@@ -59,6 +60,7 @@
         id="registrationForm"
         class="register-container"
         style="display: none;"
+        onsubmit="event.preventDefault(); registerUser()"
       >
         <h2>Register</h2>
         <label for="registerUsername">Username:</label>
