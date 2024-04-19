@@ -40,14 +40,18 @@ function loginUser() {
     })
     .then(response => {
         if (response.ok) {
-            // Redirect to index.html upon successful login
-            window.location.href = 'index.html';
-            showApp();
+            // Extract the token from the response
+            return response.json();
         } else {
             throw new Error('Invalid credentials');
         }
     })
     .then(data => {
+        // Store the token in localStorage
+        localStorage.setItem('token', data.token);
+        // Redirect to index.html upon successful login
+        window.location.href = 'index.html';
+        showApp();
     })
     .catch(error => {
         console.error('Error logging in:', error);

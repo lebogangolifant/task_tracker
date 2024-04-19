@@ -25,7 +25,6 @@ const User = mongoose.model('User', userSchema);
 
 // Middleware to verify JWT token
 function authenticateUser(req, res, next) {
-
     const authorizationHeader = req.headers.authorization;
     if (!authorizationHeader) return res.status(401).json({ error: 'Authorization header not provided' });   
      
@@ -64,7 +63,7 @@ app.post('/login', async (req, res) => {
         const passwordMatch = await bcrypt.compare(password, user.hashedPassword);
         if (!passwordMatch) return res.status(401).json({ error: 'Invalid credentials' });
         const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET);
-        res.json({ token });
+        res.json({ message: 'Login successful', token });
     } catch (error) {
         console.error('Error logging in:', error);
         res.status(500).json({ error: 'Internal server error' });
