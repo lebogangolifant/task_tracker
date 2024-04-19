@@ -16,7 +16,11 @@ const port = process.env.PORT || 3000;
 
 // Middleware to verify JWT token
 function authenticateUser(req, res, next) {
-    const token = req.headers.authorization.split(' ')[1];
+
+    const authorizationHeader = req.headers.authorization;
+    if (!authorizationHeader) return res.status(401).json({ error: 'Authorization header not provided' });   
+     
+    const token = authorizationHeader.split(' ')[1];
     if (!token) return res.status(401).json({ error: 'Token not provided' });
 
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
