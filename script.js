@@ -38,13 +38,22 @@ function loginUser() {
         },
         body: JSON.stringify({ username, password }),
     })
-    .then(response => response.json())
-    .then(data => {
-        // Redirect to index.html upon successful login
-        window.location.href = 'index.html';
-        showApp();
+    .then(response => {
+        if (response.ok) {
+            // Redirect to index.html upon successful login
+            window.location.href = 'index.html';
+            showApp();
+        } else {
+            throw new Error('Invalid credentials');
+        }
     })
-    .catch(error => console.error('Error logging in:', error));
+    .then(data => {
+    })
+    .catch(error => {
+        console.error('Error logging in:', error);
+        // Display error message to the user
+        alert('Login failed. Please check your credentials and try again.');
+    });
 }
 
 // Function to handle user registration
@@ -59,13 +68,22 @@ function registerUser() {
         },
         body: JSON.stringify({ username, password }),
     })
-    .then(response => response.json())
-    .then(data => {
-        // Redirect to index.html upon successful registration
-        window.location.href = 'index.html';
-        showApp();
+    .then(response => {
+        if (response.ok) {
+            // Redirect to index.html upon successful registration
+            window.location.href = 'index.html';
+            showApp();
+        } else {
+            throw new Error('Registration failed');
+        }
     })
-    .catch(error => console.error('Error registering user:', error));
+    .then(data => {
+    })
+    .catch(error => {
+        console.error('Error registering user:', error);
+        // Display error message to the user
+        alert('Registration failed. Please try again later.');
+    });
 }
 
 // Function to render tasks
