@@ -14,6 +14,15 @@ const bcrypt = require('bcryptjs');
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Define user schema
+const userSchema = new mongoose.Schema({
+    username: { type: String, required: true },
+    hashedPassword: { type: String, required: true },
+});
+
+// Create a User model
+const User = mongoose.model('User', userSchema);
+
 // Middleware to verify JWT token
 function authenticateUser(req, res, next) {
 
