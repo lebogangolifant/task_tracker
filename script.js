@@ -42,9 +42,9 @@ function loginUser() {
     .then(data => {
         // Redirect to index.html upon successful login
         window.location.href = 'index.html';
+        showApp();
     })
     .catch(error => console.error('Error logging in:', error));
-    showApp();
 }
 
 // Function to handle user registration
@@ -63,11 +63,10 @@ function registerUser() {
     .then(data => {
         // Redirect to index.html upon successful registration
         window.location.href = 'index.html';
+        showApp();
     })
     .catch(error => console.error('Error registering user:', error));
-    showApp();
 }
-
 
 // Function to render tasks
 function renderTasks() {
