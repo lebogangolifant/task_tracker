@@ -45,7 +45,7 @@ app.post('/register', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         // Save user to database
         const user = await User.create({ username, hashedPassword });
-        await newUser.save();
+        await user.save();
         res.json({ message: 'User registered successfully' });
     } catch (error) {
         console.error('Error registering user:', error);
