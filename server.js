@@ -3,16 +3,36 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
+// Import required modules
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
-
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
+// Create an Express app
 const app = express();
 const port = process.env.PORT || 3000;
+
+// Middleware to verify JWT token
+function authenticateUser(req, res, next) {
+    const authorizationHeader = req.headers.authorization;
+    if (!authorizationHeader) return res.status(401).json({ error: 'Authorization header not provided' });
+
+    const token = authorizationHeader.split(' ')[1];
+    if (!token) return res.status(401).json({ error: 'Token not provided' });
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) return res.status(403).json({ error: 'Failed to authenticate token' });
+        req.user = decoded;
+        next();
+    });
+}
+
+// Enable CORS and use bodyParser for JSON parsing
+app.use(cors());
+app.use(bodyParser.json());
 
 // Define user schema
 const userSchema = new mongoose.Schema({
@@ -23,20 +43,32 @@ const userSchema = new mongoose.Schema({
 // Create a User model
 const User = mongoose.model('User', userSchema);
 
-// Middleware to verify JWT token
-function authenticateUser(req, res, next) {
-    const authorizationHeader = req.headers.authorization;
-    if (!authorizationHeader) return res.status(401).json({ error: 'Authorization header not provided' });   
-     
-    const token = authorizationHeader.split(' ')[1];
-    if (!token) return res.status(401).json({ error: 'Token not provided' });
+// Connect to MongoDB
+const mongoUri = process.env.MONGO_URI || 'default_connection_string';
+mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-        if (err) return res.status(403).json({ error: 'Failed to authenticate token' });
-        req.user = decoded;
-        next();
-    });
-}
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+  console.log('Connected to MongoDB');
+});
+
+// Define task schema
+const taskSchema = new mongoose.Schema({
+  title: String,
+  description: String,
+  dueDate: Date,
+  status: String,
+});
+
+// Create a Task model
+const Task = mongoose.model('Task', taskSchema);
+
+// Route handler for the root path to send a response
+app.get('/', (req, res) => {
+    res.send('Welcome to the Task Tracker API');
+});
 
 // Route for user registration
 app.post('/register', async (req, res) => {
@@ -70,42 +102,12 @@ app.post('/login', async (req, res) => {
     }
 });
 
-// Protected route example
+// Protected route
 app.get('/tasks', authenticateUser, async (req, res) => {
     // Implementation for fetching tasks for authenticated user
 });
 
-
-// Enable CORS and use bodyParser for JSON parsing
-app.use(cors());
-app.use(bodyParser.json());
-
-// Connect to MongoDB
-const mongoUri = process.env.MONGO_URI || 'default_connection_string';
-mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-const db = mongoose.connection;
-
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', () => {
-  console.log('Connected to MongoDB');
-});
-
-// Define task schema
-const taskSchema = new mongoose.Schema({
-  title: String,
-  description: String,
-  dueDate: Date,
-  status: String,
-});
-
-// Create a Task model
-const Task = mongoose.model('Task', taskSchema);
-
-// Route handler for the root path to send a response
-app.get('/', (req, res) => {
-    res.send('Welcome to the Task Tracker API');
-});
+// Main tasks App Endpoints
 
 // Endpoint to get all tasks
 app.get('/tasks', async (req, res) => {
