@@ -89,10 +89,22 @@ form {
 .login-container form,
 .register-container form {
     margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .login-container input,
 .register-container input,
+.login-container textarea,
+.register-container textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
 .login-container button,
 .register-container button {
     width: 100%;
