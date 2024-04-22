@@ -10,6 +10,12 @@ body {
     display: none;
 }
 
+#logout-button {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
 .welcome-message {
     text-align: center;
     font-size: 16px;
@@ -62,8 +68,9 @@ body {
 form {
     display: flex;
     flex-direction: column;
+    padding: 20px;
+    border-radius: 5px;
 }
-
 
 .login-container,
 .register-container {
