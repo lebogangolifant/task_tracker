@@ -1,5 +1,17 @@
 // Base relative URL for backend API
-const apiUrl = 'https://task-tracker-server-ab301d6e354a.herokuapp.com/tasks';
+// const apiUrl = 'https://task-tracker-server-ab301d6e354a.herokuapp.com/tasks';
+
+// Base relative URL for backend API
+let apiUrl = '';
+
+// Check if the application is running in a local environment or deployed on Heroku
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    // Local testing
+    apiUrl = 'http://localhost:3000';
+} else {
+    // Remote deployment (Heroku)
+    apiUrl = 'https://task-tracker-server-ab301d6e354a.herokuapp.com';
+}
 
 // For local testing
 // const apiUrl = '/tasks'; 
