@@ -61,8 +61,7 @@ function loginUser() {
     .then(data => {
         // Store the token in localStorage
         localStorage.setItem('token', data.token);
-        // Redirect to index.html upon successful login
-        window.location.href = 'index.html';
+        // Show the main application content
         showApp();
     })
     .catch(error => {
@@ -86,8 +85,7 @@ function registerUser() {
     })
     .then(response => {
         if (response.ok) {
-            // Redirect to index.html upon successful registration
-            window.location.href = 'index.html';
+            // Show the main application content
             showApp();
         } else {
             throw new Error('Registration failed');
