@@ -21,6 +21,7 @@ let tasks = [];
 function showLoginForm() {
     document.getElementById('loginForm').style.display = 'block';
     document.getElementById('registrationForm').style.display = 'none';
+    document.getElementById('logoutButton').style.display = 'none';
     document.getElementById('task-app').style.display = "none";
 }
 
@@ -28,6 +29,7 @@ function showLoginForm() {
 function showRegistrationForm() {
     document.getElementById('loginForm').style.display = 'none';
     document.getElementById('registrationForm').style.display = 'block';
+    document.getElementById('logoutButton').style.display = 'none';
     document.getElementById("task-app").style.display = "none";
 }
 
@@ -36,6 +38,9 @@ function showApp() {
     document.getElementById("task-app").style.display = "block";
     document.getElementById("loginForm").style.display = "none";
     document.getElementById("registrationForm").style.display = "none";
+    document.querySelector(".welcome-message").style.display = "none";
+    document.querySelector(".navigation-links").style.display = "none";
+    document.querySelector('.nav-button').style.display = 'block';
 }
 
 // Function to handle user login
@@ -98,6 +103,14 @@ function registerUser() {
         // Display error message to the user
         alert('Registration failed. Please try again later.');
     });
+}
+
+// Function to handle user logout
+function logoutUser() {
+    // Clear the token from localStorage
+    document.getElementById("task-app").style.display = "none";
+    document.getElementById("loginForm").style.display = "block";
+    document.querySelector('.welcome-message').style.display = 'none';
 }
 
 // Function to render tasks
