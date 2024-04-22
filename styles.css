@@ -11,8 +11,8 @@ body {
 }
 
 #logout-button {
-    display: flex;
-    justify-content: center;
+    display: block;
+    text-align: center;
     margin-bottom: 20px;
 }
 
@@ -68,8 +68,6 @@ body {
 form {
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    border-radius: 5px;
 }
 
 .login-container,
