@@ -102,21 +102,15 @@ app.post('/login', async (req, res) => {
     }
 });
 
-// Protected route
+//  Protected route to get all tasks for authenticated users
 app.get('/tasks', authenticateUser, async (req, res) => {
-    // Implementation for fetching tasks for authenticated user
-});
-
-// Main tasks App Endpoints
-
-// Endpoint to get all tasks
-app.get('/tasks', async (req, res) => {
-   try {
-    const tasks = await Task.find();
-    res.json(tasks);
-   } catch (error) {
-    res.status(500).json({ error: 'Error fetching tasks' });
-   }
+     try {
+        const tasks = await Task.find({ userId: req.user.id });
+        res.json(tasks);
+    } catch (error) {
+        console.error('Error fetching tasks:', error);
+        res.status(500).json({ error: 'Error fetching tasks' });
+    }
 });
 
 // Endpoint to get a specific task by ID
