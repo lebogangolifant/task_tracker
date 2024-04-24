@@ -17,7 +17,7 @@ const port = process.env.PORT || 3000;
 
 // Middleware to verify JWT token
 function authenticateUser(req, res, next) {
-    const authorizationHeader = req.headers.authorization;
+  const authorizationHeader = req.headers.authorization;
     if (!authorizationHeader) return res.status(401).json({ error: 'Authorization header not provided' });
 
     const token = authorizationHeader.split(' ')[1];
@@ -60,6 +60,7 @@ const taskSchema = new mongoose.Schema({
   description: String,
   dueDate: Date,
   status: String,
+  userId: String,
 });
 
 // Create a Task model
@@ -114,70 +115,72 @@ app.get('/tasks', authenticateUser, async (req, res) => {
 });
 
 // Endpoint to get a specific task by ID
-app.get('/tasks/:taskId', async (req, res) => {
+app.get('/tasks/:taskId', authenticateUser, async (req, res) => {
     const taskId = req.params.taskId;
 
     try {
-      const task = await Task.findById(taskId);
-      if (task) {
-        res.json(task);
-      } else {
-        res.status(404).json({ error: 'Task not found' });
-      }
-  } catch (error) {
-    res.status(500).json({ error: 'Error fetching task' });
-  }
+        const task = await Task.findOne({ _id: taskId, userId: req.user.id });
+        if (task) {
+            res.json(task);
+        } else {
+            res.status(404).json({ error: 'Task not found' });
+        }
+    } catch (error) {
+        console.error('Error fetching task:', error);
+        res.status(500).json({ error: 'Error fetching task' });
+    }
 });
 
 // Endpoint to add a new task
-app.post('/tasks', async (req, res) => {
-    const newTask = new Task(req.body);
-    console.log('Received task data:', req.body);
+app.post('/tasks', authenticateUser, async (req, res) => {
+  const { title, description, dueDate, status } = req.body;
+    const userId = req.user.id;
+
     try {
-      const savedTask = await newTask.save();
-      console.log('Task added:', savedTask);
-      res.status(201).json(savedTask);
+        const newTask = await Task.create({ title, description, dueDate, status, userId });
+        res.status(201).json(newTask);
     } catch (error) {
-        console.error('Error adding task:', error);  
-      res.status(500).json({ error: 'Error adding task' });
+        console.error('Error adding task:', error);
+        res.status(500).json({ error: 'Error adding task' });
     }
-  });
-  
-
-// Endpoint to add a new task
-app.post('/tasks', async (req, res) => {
-    const newTask = new Task(req.body);
-
-    try {
-      const savedTask = await newTask.save();
-      res.status(201).json(savedTask);
-    } catch (error) { 
-      res.status(500).json({ error: 'Error adding task' });
-    }
-  });
+});
   
 // Endpoint to update an existing task
-app.put('/tasks/:taskId', async (req, res) => {
+app.put('/tasks/:taskId', authenticateUser, async (req, res) => {
     const taskId = req.params.taskId;
+    const { title, description, dueDate, status } = req.body;
 
     try {
-      const updatedTask = await Task.findByIdAndUpdate(taskId, req.body, { new: true });
-      res.json(updatedTask);
+        const updatedTask = await Task.findOneAndUpdate({ _id: taskId, userId: req.user.id }, 
+            { title, description, dueDate, status }, { new: true });
+
+        if (!updatedTask) {
+            return res.status(404).json({ error: 'Task not found' });
+        }
+
+        res.json(updatedTask);
     } catch (error) {
-      res.status(500).json({ error: 'Error updating task' });
-    }  
+        console.error('Error updating task:', error);
+        res.status(500).json({ error: 'Error updating task' });
+    }
 });
 
 // Endpoint to delete a task
-app.delete('/tasks/:taskId', async (req, res) => {
-  const taskId = req.params.taskId;
+app.delete('/tasks/:taskId', authenticateUser, async (req, res) => {
+    const taskId = req.params.taskId;
 
-  try {
-    await Task.findByIdAndDelete(taskId);
-    res.json({ success: true });
-  } catch (error) {
-    res.status(500).json({ error: 'Error deleting task' });
-  }
+    try {
+        const deletedTask = await Task.findOneAndDelete({ _id: taskId, userId: req.user.id });
+
+        if (!deletedTask) {
+            return res.status(404).json({ error: 'Task not found' });
+        }
+
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Error deleting task:', error);
+        res.status(500).json({ error: 'Error deleting task' });
+    }
 });
 
 // Start the server
