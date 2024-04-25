@@ -7,10 +7,10 @@ let apiUrl = '';
 // Check if the application is running in a local environment or deployed on Heroku
 if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
     // Local testing
-    apiUrl = 'http://localhost:3000';
+    apiUrl = 'http://localhost:3000/tasks';
 } else {
-    // Remote deployment (Heroku)
-    apiUrl = 'https://task-tracker-server-ab301d6e354a.herokuapp.com';
+    // Remote deployment
+    apiUrl = 'https://task-tracker-server-ab301d6e354a.herokuapp.com/tasks';
 }
 
 // For local testing
@@ -217,6 +217,7 @@ function addTask() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
         body: JSON.stringify({ title, description, dueDate, status: 'pending' }),
     })
@@ -246,6 +247,9 @@ function deleteTask(taskId) {
     // Make a DELETE request to delete the task
     fetch(`${apiUrl}/${taskId}`, {
         method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+}
     })
         .then(response => response.json())
         .then(() => {
@@ -328,6 +332,7 @@ function updateTask() {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
         body: JSON.stringify({ title, description, dueDate }),
     })
