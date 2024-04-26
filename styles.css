@@ -6,6 +6,51 @@ body {
     transition: background-color 0.3s, color 0.3s; /* Smooth transition for dark/light mode switch */
 }
 
+#task-app {
+    display: none;
+}
+
+#logout-button {
+    display: block;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.welcome-message {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 50px;
+    color: #333;
+}
+
+/* Navigation links container */
+.navigation-links {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 70px;
+}
+
+/* Navigation links style */
+.nav-button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Hover effect for navigation links */
+.nav-button:hover {
+    background-color: #666; /* Change background color on hover */
+}
+
+/* App container */
 .container {
     max-width: 600px;
     margin: 50px auto;
@@ -14,6 +59,89 @@ body {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 998;
+}
+
+/* Styles for login and registration forms */
+
+.login-container,
+.register-container,
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-container,
+.register-container {
+    max-width: 400px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h2,
+.register-container h2 {
+    text-align: center;
+    color: #333;
+}
+
+.login-container form,
+.register-container form {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-container input,
+.register-container input,
+.login-container textarea,
+.register-container textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.login-container button,
+.register-container button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.login-container button,
+.register-container button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-container button:hover,
+.register-container button:hover {
+    background-color: #666;
+}
+
+/* Additional styles for register link */
+.register-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.register-link a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
 }
 
 /* Style for the logo elements */
@@ -242,7 +370,7 @@ button:hover {
 }
 
 /* Add overlay for background shadow */
-.overlay {
+#overlay {
     display: none;
     position: fixed;
     top: 0;

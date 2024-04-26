@@ -1,9 +1,113 @@
 // Base relative URL for backend API
-const apiUrl = 'https://task-tracker-server-ab301d6e354a.herokuapp.com/tasks';
+// const apiUrl = 'https://task-tracker-server-ab301d6e354a.herokuapp.com/tasks';
+
+let apiUrl = '';
+
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    apiUrl = 'http://localhost:3000';
+} else {
+    apiUrl = 'https://task-tracker-server-ab301d6e354a.herokuapp.com';
+}
 
 // For local testing
 // const apiUrl = '/tasks'; 
 let tasks = [];
+
+// Function to show the login form and hide other elements
+function showLoginForm() {
+    document.getElementById('loginForm').style.display = 'block';
+    document.getElementById('registrationForm').style.display = 'none';
+    document.getElementById('logoutButton').style.display = 'none';
+    document.getElementById('task-app').style.display = "none";
+}
+
+// Function to show the registration form and hide other elements
+function showRegistrationForm() {
+    document.getElementById('loginForm').style.display = 'none';
+    document.getElementById('registrationForm').style.display = 'block';
+    document.getElementById('logoutButton').style.display = 'none';
+    document.getElementById("task-app").style.display = "none";
+}
+
+// Function to show the main app content and hide login/registration forms
+function showApp() {
+    document.getElementById("task-app").style.display = "block";
+    document.getElementById("loginForm").style.display = "none";
+    document.getElementById("registrationForm").style.display = "none";
+    document.querySelector(".welcome-message").style.display = "none";
+    document.querySelector(".navigation-links").style.display = "none";
+    document.querySelector('.nav-button').style.display = 'block';
+}
+
+// Function to handle user login
+function loginUser() {
+    const username = document.getElementById('loginUsername').value;
+    const password = document.getElementById('loginPassword').value;
+
+    fetch(`${apiUrl}/login`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+    })
+    .then(response => {
+        if (response.ok) {
+            // Extract the token from the response
+            return response.json();
+        } else {
+            throw new Error('Invalid credentials');
+        }
+    })
+    .then(data => {
+        // Store the token in localStorage
+        localStorage.setItem('token', data.token);
+        // Show the main application content
+        showApp();
+    })
+    .catch(error => {
+        console.error('Error logging in:', error);
+        // Display error message to the user
+        alert('Login failed. Please check your credentials and try again.');
+    });
+}
+
+// Function to handle user registration
+function registerUser() {
+    const username = document.getElementById('registerUsername').value;
+    const password = document.getElementById('registerPassword').value;
+
+    fetch(`${apiUrl}/register`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+    })
+    .then(response => {
+        if (response.ok) {
+            // Show the main application content
+            showApp();
+        } else {
+            throw new Error('Registration failed');
+        }
+    })
+    .then(data => {
+    })
+    .catch(error => {
+        console.error('Error registering user:', error);
+        // Display error message to the user
+        alert('Registration failed. Please try again later.');
+    });
+}
+
+// Function to handle user logout
+function logoutUser() {
+    // Clear the token from localStorage
+    document.getElementById("task-app").style.display = "none";
+    document.getElementById("loginForm").style.display = "block";
+    document.querySelector('.welcome-message').style.display = 'none';
+}
 
 // Function to render tasks
 function renderTasks() {
@@ -11,7 +115,11 @@ function renderTasks() {
     taskList.innerHTML = '';
 
     // Fetch tasks from the backend
-    fetch(apiUrl)
+    fetch(`${apiUrl}/tasks`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
         .then(response => response.json())
         .then(fetchedTasks => {
             tasks = fetchedTasks;
@@ -105,10 +213,11 @@ function addTask() {
     const dueDate = document.getElementById('dueDate').value;
 
     // Make a POST request to add the new task
-    fetch(apiUrl, {
+    fetch(`${apiUrl}/tasks`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
         body: JSON.stringify({ title, description, dueDate, status: 'pending' }),
     })
@@ -136,8 +245,11 @@ function addTask() {
 function deleteTask(taskId) {
     console.log('Deleting task with ID:', taskId);
     // Make a DELETE request to delete the task
-    fetch(`${apiUrl}/${taskId}`, {
+    fetch(`${apiUrl}/tasks/${taskId}`, {
         method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+}
     })
         .then(response => response.json())
         .then(() => {
@@ -154,10 +266,11 @@ function toggleTaskStatus(taskId) {
 
     if (taskToUpdate) {
         // Make a PUT request to update the task status
-        fetch(`${apiUrl}/${taskId}`, {
+        fetch(`${apiUrl}/tasks/${taskId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify({ status: taskToUpdate.status === 'pending' ? 'completed' : 'pending' }),
         })
@@ -216,10 +329,11 @@ function updateTask() {
     const dueDate = document.getElementById('updateDueDate').value;
 
     // Make a PUT request to update the task
-    fetch(`${apiUrl}/${taskId}`, {
+    fetch(`${apiUrl}/tasks/${taskId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
         body: JSON.stringify({ title, description, dueDate }),
     })
