@@ -1,16 +1,12 @@
 // Base relative URL for backend API
 // const apiUrl = 'https://task-tracker-server-ab301d6e354a.herokuapp.com/tasks';
 
-// Base relative URL for backend API
 let apiUrl = '';
 
-// Check if the application is running in a local environment or deployed on Heroku
 if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    // Local testing
-    apiUrl = 'http://localhost:3000/tasks';
+    apiUrl = 'http://localhost:3000';
 } else {
-    // Remote deployment
-    apiUrl = 'https://task-tracker-server-ab301d6e354a.herokuapp.com/tasks';
+    apiUrl = 'https://task-tracker-server-ab301d6e354a.herokuapp.com';
 }
 
 // For local testing
@@ -119,7 +115,11 @@ function renderTasks() {
     taskList.innerHTML = '';
 
     // Fetch tasks from the backend
-    fetch(apiUrl)
+    fetch(`${apiUrl}/tasks`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+    })
         .then(response => response.json())
         .then(fetchedTasks => {
             tasks = fetchedTasks;
@@ -213,7 +213,7 @@ function addTask() {
     const dueDate = document.getElementById('dueDate').value;
 
     // Make a POST request to add the new task
-    fetch(apiUrl, {
+    fetch(`${apiUrl}/tasks`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -245,7 +245,7 @@ function addTask() {
 function deleteTask(taskId) {
     console.log('Deleting task with ID:', taskId);
     // Make a DELETE request to delete the task
-    fetch(`${apiUrl}/${taskId}`, {
+    fetch(`${apiUrl}/tasks/${taskId}`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -266,10 +266,11 @@ function toggleTaskStatus(taskId) {
 
     if (taskToUpdate) {
         // Make a PUT request to update the task status
-        fetch(`${apiUrl}/${taskId}`, {
+        fetch(`${apiUrl}/tasks/${taskId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify({ status: taskToUpdate.status === 'pending' ? 'completed' : 'pending' }),
         })
@@ -328,7 +329,7 @@ function updateTask() {
     const dueDate = document.getElementById('updateDueDate').value;
 
     // Make a PUT request to update the task
-    fetch(`${apiUrl}/${taskId}`, {
+    fetch(`${apiUrl}/tasks/${taskId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
