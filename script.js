@@ -17,6 +17,8 @@ let tasks = [];
 function showLoginForm() {
     document.getElementById('loginForm').style.display = 'block';
     document.getElementById('registrationForm').style.display = 'none';
+    document.getElementById("forgotPasswordForm").style.display = "none";
+    document.getElementById('forgot-password-button').style.display = "none";
     document.getElementById('logoutButton').style.display = 'none';
     document.getElementById('task-app').style.display = "none";
 }
@@ -34,9 +36,18 @@ function showApp() {
     document.getElementById("task-app").style.display = "block";
     document.getElementById("loginForm").style.display = "none";
     document.getElementById("registrationForm").style.display = "none";
+    document.getElementById("forgotPasswordForm").style.display = "none";
     document.querySelector(".welcome-message").style.display = "none";
     document.querySelector(".navigation-links").style.display = "none";
     document.querySelector('.nav-button').style.display = 'block';
+}
+
+// Function to show the forgot password form
+function showForgotPasswordForm() {
+    document.getElementById('forgotPasswordForm').style.display = 'block';
+    document.getElementById('loginForm').style.display = 'none';
+    document.getElementById('registrationForm').style.display = 'none';
+    document.getElementById('task-app').style.display = 'none';
 }
 
 // Function to handle user login
@@ -75,6 +86,7 @@ function loginUser() {
 // Function to handle user registration
 function registerUser() {
     const username = document.getElementById('registerUsername').value;
+    const email = document.getElementById('registerEmail').value;
     const password = document.getElementById('registerPassword').value;
 
     fetch(`${apiUrl}/register`, {
@@ -82,7 +94,7 @@ function registerUser() {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, email, password }),
     })
     .then(response => {
         if (response.ok) {
@@ -101,12 +113,42 @@ function registerUser() {
     });
 }
 
+// Function to handle forgot password
+function forgotPassword() {
+    const username = document.getElementById('forgotUsername').value;
+    const email = document.getElementById('forgotEmail').value;
+
+    fetch(`${apiUrl}/forgot-password`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, email }),
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Reset password failed');
+        }
+    })
+    .then(data => {
+        alert(data.message);
+    })
+    .catch(error => {
+        console.error('Error resetting password:', error);
+        alert('Reset password failed. Please try again later.');
+    });
+}
+
 // Function to handle user logout
 function logoutUser() {
     // Clear the token from localStorage
     document.getElementById("task-app").style.display = "none";
+    document.getElementById("forgotPasswordForm").style.display = "none";
     document.getElementById("loginForm").style.display = "block";
     document.querySelector('.welcome-message').style.display = 'none';
+    document.getElementById('forgot-password-button').style.display = "block";
 }
 
 // Function to render tasks
