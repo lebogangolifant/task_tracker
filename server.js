@@ -10,6 +10,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer');
 
 // Create an Express app
 const app = express();
@@ -37,6 +38,7 @@ app.use(bodyParser.json());
 // Define user schema
 const userSchema = new mongoose.Schema({
     username: { type: String, required: true },
+    email: { type: String, required: true },
     hashedPassword: { type: String, required: true },
 });
 
@@ -74,14 +76,61 @@ app.get('/', (req, res) => {
 // Route for user registration
 app.post('/register', async (req, res) => {
     try {
-        const { username, password } = req.body;
+        const { username, email, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
         // Save user to database
-        const user = await User.create({ username, hashedPassword });
+        const user = await User.create({ username, email, hashedPassword });
         await user.save();
         res.json({ message: 'User registered successfully' });
     } catch (error) {
         console.error('Error registering user:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Function to send email
+async function sendEmail(to, subject, text) {
+    // SMTP transport
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL_USERNAME,
+            pass: process.env.EMAIL_PASSWORD,
+        },
+    });
+
+    let mailOptions = {
+        from: process.env.EMAIL_USERNAME,
+        to,
+        subject,
+        text,
+    };
+
+    await transporter.sendMail(mailOptions);
+}
+
+// Route for forgot password
+app.post('/forgot-password', async (req, res) => {
+    try {
+        const { username, email } = req.body;
+        // Fetch user from database
+        const user = await User.findOne({ username, email });
+        if (!user) return res.status(404).json({ error: 'User not found' });
+
+        // Generate a random temporary password
+        const tempPassword = Math.random().toString(36).slice(-8);
+        const hashedTempPassword = await bcrypt.hash(tempPassword, 10);
+
+        // Update user's password with the temporary password
+        user.hashedPassword = hashedTempPassword;
+        await user.save();
+
+        // Send the temporary password to the user's email
+        await sendEmail(user.email, 'Temporary Password', `Your temporary password is: ${tempPassword}`);
+
+        res.json({ message: 'Temporary password sent successfully' });
+    } catch (error) {
+        console.error('Error resetting password:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
