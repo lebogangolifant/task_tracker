@@ -53,6 +53,9 @@
         <label for="loginPassword">Password:</label>
         <input type="password" id="loginPassword" required />
         <button type="submit">Login</button>
+        <a id="forgot-password-button" href="#" onclick="showForgotPasswordForm()"
+        >Forgot Password</a
+        >
       </form>
 
       <!-- User Registration Form -->
@@ -65,11 +68,28 @@
         <h2>Register</h2>
         <label for="registerUsername">Username:</label>
         <input type="text" id="registerUsername" required />
+        <label for="registerEmail">Email:</label>
+        <input type="email" id="registerEmail" required />
         <label for="registerPassword">Password:</label>
         <input type="password" id="registerPassword" required />
         <label for="confirmPassword">Confirm Password:</label>
         <input type="password" id="confirmPassword" required />
         <button type="submit">Register</button>
+      </form>
+
+      <!-- Forgot Password Form -->
+      <form
+        id="forgotPasswordForm"
+        class="forgot-password-container"
+        style="display: none"
+        onsubmit="event.preventDefault(); forgotPassword()"
+      >
+        <h2>Forgot Password</h2>
+        <label for="forgotUsername">Username:</label>
+        <input type="text" id="forgotUsername" required />
+        <label for="forgotEmail">Email:</label>
+        <input type="email" id="forgotEmail" required />
+        <button type="submit">Reset Password</button>
       </form>
 
       <div class="welcome-message">

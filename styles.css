@@ -14,6 +14,28 @@ body {
     display: block;
     text-align: center;
     margin-bottom: 20px;
+    justify-content: center;
+    width: 47%; 
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: box-shadow 0.3s ease;
+}
+
+#forgot-password-button {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #007bff;
+    cursor: pointer;
+    margin-bottom: 20px;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+/* Hover effect for forgot password navigation link */
+#forgot-password-button:hover {
+    color: #666;
 }
 
 .welcome-message {
@@ -27,6 +49,9 @@ body {
 /* Navigation links container */
 .navigation-links {
     display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
     justify-content: center;
     margin-top: 50px;
     margin-bottom: 70px;
@@ -34,8 +59,11 @@ body {
 
 /* Navigation links style */
 .nav-button {
-    margin: 0 10px;
-    padding: 10px 20px;
+    margin: 5px 5px;
+    width: 50%;
+    text-align: center;
+    align-items: center;
+    padding: 10px;
     background-color: #007bff;
     color: #fff;
     border-radius: 10px;
@@ -65,13 +93,15 @@ body {
 
 .login-container,
 .register-container,
+.forgot-password-container
 form {
     display: flex;
     flex-direction: column;
 }
 
 .login-container,
-.register-container {
+.register-container,
+.forgot-password-container {
     max-width: 400px;
     margin: 50px auto;
     background-color: #ffffff;
@@ -81,13 +111,15 @@ form {
 }
 
 .login-container h2,
-.register-container h2 {
+.register-container h2,
+.forgot-password-container h2 {
     text-align: center;
     color: #333;
 }
 
 .login-container form,
-.register-container form {
+.register-container form,
+.forgot-password-container form {
     margin-top: 20px;
     width: 100%;
     display: flex;
@@ -96,8 +128,10 @@ form {
 
 .login-container input,
 .register-container input,
+.forgot-password-container input,
 .login-container textarea,
-.register-container textarea {
+.register-container textarea,
+.forgot-password-container textarea  {
     width: calc(100% - 20px);
     padding: 10px;
     margin-bottom: 10px;
@@ -106,7 +140,8 @@ form {
 }
 
 .login-container button,
-.register-container button {
+.register-container button,
+.forgot-password-container button {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -115,7 +150,8 @@ form {
 }
 
 .login-container button,
-.register-container button {
+.register-container button,
+.forgot-password-container button {
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -125,7 +161,8 @@ form {
 }
 
 .login-container button:hover,
-.register-container button:hover {
+.register-container button:hover,
+.forgot-password-container button:hover {
     background-color: #666;
 }
 
