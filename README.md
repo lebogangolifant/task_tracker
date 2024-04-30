@@ -1,15 +1,8 @@
 # Task Tracker
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Node.js CI](https://github.com/lebogangolifant/task-tracker/actions/workflows/node.js.yml/badge.svg)](https://github.com/lebogangolifant/task-tracker/actions/workflows/node.js.yml)
-[![Maintainability](https://api.codeclimate.com/v1/badges/abcdefg/maintainability)](https://codeclimate.com/github/lebogangolifant/task-tracker/maintainability)
-[![GitHub last commit](https://img.shields.io/github/last-commit/lebogangolifant/task-tracker)](https://github.com/lebogangolifant/task-tracker/commits/master)
-[![GitHub issues](https://img.shields.io/github/issues/lebogangolifant/task-tracker)](https://github.com/lebogangolifant/task-tracker/issues)
-[![GitHub contributors](https://img.shields.io/github/contributors/lebogangolifant/task-tracker)](https://github.com/lebogangolifant/task-tracker/graphs/contributors)
+Simple and efficient Task Tracker app developed with Node.js, Express.js, and MongoDB. Its frontend, crafted with vanilla JavaScript, seamlessly interacts with the backend, allowing users to manage tasks effortlessly. Focusing on productivity and ease of use.
 
 ![Task Tracker App](img/task_tracker_app.png)
-
-Introducing a simple and efficient Task Tracker app developed with Node.js, Express.js, and MongoDB. It allows users to manage tasks effortlessly, focusing on productivity and ease of use.
 
 ## Table of Contents
 
@@ -23,7 +16,6 @@ Introducing a simple and efficient Task Tracker app developed with Node.js, Expr
 - [Backend](#backend)
 - [User Authentication](#user-authentication)
 - [Contributing](#contributing)
-- [Issues](#issues)
 - [Blog Post](#blog-post)
 - [License](#license)
 
@@ -132,17 +124,13 @@ This version includes user authentication using JWT (JSON Web Tokens).
 
 - **POST /forgot-password**: Request a temporary password via email.
 
-## Blog Post
-
-An in-depth look at the [project development process](https://bit.ly/task_tracker_blog)
-
 ## Contributing
 
 Contributions are welcome! Please follow the [contribution guidelines](CONTRIBUTING.md).
 
-## Issues
+## Blog Post
 
-If you encounter any issues or have suggestions, feel free to [open an issue](https://github.com/lebogangolifant/task-tracker/issues).
+An in-depth look at the [project development process](https://bit.ly/task_tracker_blog)
 
 ## License
 
