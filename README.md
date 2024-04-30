@@ -1,15 +1,19 @@
-
 # Task Tracker
 
-![Task Tracker Logo](img/task_tracker_app.png)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js CI](https://github.com/lebogangolifant/task-tracker/actions/workflows/node.js.yml/badge.svg)](https://github.com/lebogangolifant/task-tracker/actions/workflows/node.js.yml)
+[![Maintainability](https://api.codeclimate.com/v1/badges/abcdefg/maintainability)](https://codeclimate.com/github/lebogangolifant/task-tracker/maintainability)
+[![GitHub last commit](https://img.shields.io/github/last-commit/lebogangolifant/task-tracker)](https://github.com/lebogangolifant/task-tracker/commits/master)
+[![GitHub issues](https://img.shields.io/github/issues/lebogangolifant/task-tracker)](https://github.com/lebogangolifant/task-tracker/issues)
+[![GitHub contributors](https://img.shields.io/github/contributors/lebogangolifant/task-tracker)](https://github.com/lebogangolifant/task-tracker/graphs/contributors)
 
-A simple task management web application, that utilizes the RESTful API architectural style. The frontend is Built with HTML5, CSS3, and JavaScript. It communicates with the backend through the Fetch API, a JavaScript interface for accessing and manipulating parts of the protocol (requests and responses). The backend is powered by Node.js and Express, managing servers and routes. Seamless integration with MongoDB is achieved through Mongoose.
+![Task Tracker App](img/task_tracker_app.png)
 
+Introducing a simple and efficient Task Tracker app developed with Node.js, Express.js, and MongoDB. It allows users to manage tasks effortlessly, focusing on productivity and ease of use.
 
 ## Table of Contents
 
 - [Features](#features)
-- [Blog Post](#blog-post)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
@@ -19,22 +23,17 @@ A simple task management web application, that utilizes the RESTful API architec
 - [Backend](#backend)
 - [User Authentication](#user-authentication)
 - [Contributing](#contributing)
+- [Issues](#issues)
+- [Blog Post](#blog-post)
 - [License](#license)
 
 ## Features
 
-- Add new tasks with a title, description, and due date.
-- View a list of all tasks with relevant details.
-- Filter tasks by status (pending/completed).
-- Mark tasks as complete or incomplete.
-- Update task details.
-- Delete tasks.
-- Dark mode for a comfortable viewing experience.
-- Responsive design for various screen sizes.
-
-## Blog Post
-
-An in-depth look at the [project development process](https://bit.ly/task_tracker_blog)
+- **User Management**: Register and login securely.
+- **Task Management**: Perform CRUD operations on tasks, including adding, updating, and deleting.
+- **Forgot Password**: Request a temporary password via email if forgotten.
+- **Responsive Design**: Works seamlessly on desktop and mobile devices.
+- **Dark Mode**: Enjoy a comfortable viewing experience, even in low light environments.
 
 ## Getting Started
 
@@ -90,7 +89,7 @@ Before you begin, ensure you have the following tools installed:
 
 4. Add, manage, and track your tasks!
 
-## API Endpoints
+## Tasks API Endpoints
 
 - **GET /tasks**: Retrieve all tasks.
 - **GET /tasks/:taskId**: Retrieve a specific task by ID.
@@ -122,14 +121,29 @@ Before you begin, ensure you have the following tools installed:
 
 ## User Authentication
 
-This version does not include user authentication. Feel free to add your preferred authentication mechanism.
+This version includes user authentication using JWT (JSON Web Tokens). 
+
+### Authentication API Endpoints
+
+- **POST /register**: Register a new user.
+- **POST /login**: Login an existing user.
+
+### Password Management API Endpoints
+
+- **POST /forgot-password**: Request a temporary password via email.
+
+## Blog Post
+
+An in-depth look at the [project development process](https://bit.ly/task_tracker_blog)
 
 ## Contributing
 
 Contributions are welcome! Please follow the [contribution guidelines](CONTRIBUTING.md).
 
+## Issues
+
+If you encounter any issues or have suggestions, feel free to [open an issue](https://github.com/lebogangolifant/task-tracker/issues).
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
-
