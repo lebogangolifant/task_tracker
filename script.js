@@ -6,7 +6,7 @@ let apiUrl = '';
 if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
     apiUrl = 'http://localhost:3000';
 } else {
-    apiUrl = 'https://task-tracker-server-ab301d6e354a.herokuapp.com';
+    apiUrl = 'https://task-tracker-server-teal.vercel.app/';
 }
 
 // For local testing
